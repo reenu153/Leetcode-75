@@ -5,21 +5,22 @@ class Solution(object):
         :rtype: bool
         """
         map={'(':')','{':'}','[':']'}
-        top=0
-        stack=[s[0]]
-      
-        for i in s[1:]:
-            if i not in map.keys():
-                if top>-1 and stack[top] in map.keys() and i==map[stack[top]]:
-                    stack.pop()
-                    top-=1   
-                else:
-                    return False 
+
+        stack=[]
+        for let in s:
+            if let in map.keys():
+                stack.append(let)
             else:
-                stack.append(i)
-                top+=1
+                if len(stack):
+                    last=stack.pop()
+                    if let!=map[last]:
+                        return False
+                else:
+                    return False
 
         return not len(stack)
+
+
             
         
 
