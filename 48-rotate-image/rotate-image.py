@@ -5,10 +5,9 @@ class Solution:
         """
         #reverse rows, then take transpose
         n=len(matrix)
-        m=len(matrix[0])
-        i=0
-        j=n-1
+        i,j=0,n-1
 
+        #swap rows
         while(i<j):
             matrix[i],matrix[j]=matrix[j],matrix[i]
             i+=1
@@ -19,7 +18,5 @@ class Solution:
         for i in range(n):
             for j in range(i):
                 matrix[i][j],matrix[j][i]=matrix[j][i],matrix[i][j]
-
-        
 
         return matrix
