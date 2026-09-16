@@ -1,25 +1,35 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         
-        new=[]
-        added=False
+        intervals=sorted(intervals)
+        res,i=[],0
 
-        for i in range(len(intervals)):
+        while i<len(intervals) and intervals[i][1]<newInterval[0]:
+            res.append(intervals[i])
+            i+=1
 
-            if (intervals[i][1]<newInterval[0]):
-                new.append(intervals[i])
-            
-            elif intervals[i][0]>newInterval[1] and intervals[i][1]>newInterval[1]:
-                if not added:
-                    new.append(newInterval)
-                    added=True
-                new.append(intervals[i])
-            
+        #merge
+        if i<len(intervals):
+            if intervals[i][0]<=newInterval[1]:
+                new=[min(newInterval[0],intervals[i][0]),max(newInterval[1],intervals[i][1])]
+                res.append(new)
             else:
-                newInterval[0]=min(intervals[i][0],newInterval[0])
-                newInterval[1]=max(intervals[i][1],newInterval[1])
-   
+                res.append(newInterval)
+                res.append(intervals[i])
+            i+=1
+        else:
+            res.append(newInterval)
+            return res
 
-        if not added:
-            new.append(newInterval)
-        return new
+        while i<len(intervals) and intervals[i][0]<=newInterval[1]:
+            last=res.pop()
+            res.append([min(last[0],intervals[i][0]),max(last[1],intervals[i][1])])
+            i+=1
+            
+
+        while i<len(intervals):
+            res.append(intervals[i])
+            i+=1
+             
+        return res
+       
