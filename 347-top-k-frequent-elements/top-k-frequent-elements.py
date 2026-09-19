@@ -1,12 +1,18 @@
-class Solution(object):
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
-        map=defaultdict(int)
-        for i in nums:
-            map[i]+=1
-        return heapq.nlargest(k,map.keys(),key=lambda x:map[x])
+class Solution:
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+        heap=[]
+        counter={}
+        for num in nums:
+            if num in counter.keys():
+                counter[num]+=1
+            else:
+                counter[num]=1
+
+        sorted_count=sorted(counter, key=counter.get,reverse=True)
+
+        return sorted_count[:k]
+
+           
         
+        
+
