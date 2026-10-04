@@ -1,21 +1,12 @@
-class Solution(object):
-    def dp(self,n,memo):
-        if n in memo.keys():
-            return memo[n]
-        memo[n] = self.dp(n-1,memo) + self.dp(n-2,memo)
-        return memo[n]
-
-    def climbStairs(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        memo={1:1,2:2}
-        return self.dp(n,memo)
-
-
-
-    
-
-        
+class Solution:
+    memo={}
+    def climbStairs(self, n: int) -> int:
+            if n<=0:
+                return 0
+            if n==1 or n==2:
+                return n
+            if n in self.memo.keys():
+                return self.memo[n]
+            self.memo[n]= self.climbStairs(n-1)+self.climbStairs(n-2)
+            return self.memo[n]
         
